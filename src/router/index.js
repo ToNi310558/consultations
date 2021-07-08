@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Patients from '../views/Patients.vue'
+const newPatient = () => import('../views/newPatient.vue')
 
 Vue.use(VueRouter)
 
@@ -10,6 +11,11 @@ const routes = [
     name: 'Patients',
     component: Patients
   },
+  {
+    path: '/newPatient',
+    name: 'newPatient',
+    component: newPatient
+  }
 ]
 
 const router = new VueRouter({

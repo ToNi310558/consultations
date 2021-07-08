@@ -12,6 +12,7 @@
       <div class="patient-birthdate">{{patient.birthdate}}</div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -27,13 +28,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
   .patients{
-    width: 700px;
-    margin: 50px auto;
     border: 1px solid #2c3e50;
     background: mintcream;
     padding: 30px;
+      margin-top: 30px;
+  }
+  .new-patient{
+      .patient-flexbox;
+      justify-content: center;
+      margin: 6px 200px 10px 200px;
+      a{
+          text-decoration: none;
+          color: #2c3e50;
+      }
   }
   .patient-flexbox{
     display: flex;
@@ -41,6 +50,7 @@ export default {
     padding: 10px 20px;
     border: 1px solid #2c3e50;
     margin-bottom: 6px;
+    border-radius: 5px;
   }
   .patient-birthdate{
     opacity: .8;
