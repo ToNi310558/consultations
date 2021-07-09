@@ -1,6 +1,7 @@
 <template>
     <div class="forms">
-        <form  @submit.prevent="submit">
+        <form novalidate @submit.prevent="submit">
+
             <label class="form-label">Фамилия<br>
                 <input v-model.trim="surname"
                        @blur="surnameTouch = true"
@@ -31,7 +32,7 @@
                 <input v-model.trim="birthdate"
                        @blur="birthdateTouch = true"
                        :class="{ 'error':  birthdateInvalid || birthdateError }"
-                       class="form-input" type="text">
+                       class="form-input" type="date">
                 <div v-if="birthdateError" class="error-msg">{{msgRequired}}</div>
                 <div v-else-if="birthdateInvalid" class="error-msg">{{msgInvalid}}</div>
             </label>
@@ -59,17 +60,26 @@
             <section>
                 <label class="form-label_mini">Вес<br>
                     <input v-model.trim="weight"
+                           @blur="weightTouch = true"
+                           :class="{ 'error':  weightInvalid }"
                            class="form-input_mini" type="text" maxlength="3">
+                    <div v-if="weightInvalid" class="error-msg">{{msgInvalid}}</div>
                 </label>
 
                 <label class="form-label_mini">Рост<br>
                     <input v-model.trim="height"
+                           @blur="heightTouch = true"
+                           :class="{ 'error':  heightInvalid }"
                            class="form-input_mini" type="text" maxlength="3">
+                    <div v-if="heightInvalid" class="error-msg">{{msgInvalid}}</div>
                 </label>
 
                 <label class="form-label_mini">Возраст<br>
                     <input v-model.trim="age"
-                           class="form-input_mini" type="text" maxlength="3">
+                           @blur="ageTouch = true"
+                           :class="{ 'error':  ageInvalid }"
+                           class="form-input_mini" type="text" maxlength="2">
+                    <div v-if="ageInvalid" class="error-msg">{{msgInvalid}}</div>
                 </label>
             </section>
 
@@ -81,15 +91,16 @@
 
 <script>
     import {mapMutations} from 'vuex'
-    import { required,  helpers} from 'vuelidate/lib/validators';
+    import { required,  helpers, minDate} from 'vuelidate/lib/validators';
     const alpha = helpers.regex('alpha', /^[ЁА-Яёа-я]*$/);
-
+    const onlyNumbers = helpers.regex('onlyNumbers', /[0-9]/);
     export default {
         name: "newPatient",
         data () {
             return {
                 msgRequired: 'Поле обязательно для заполнения',
                 msgInvalid: 'Недопустимые символы',
+                msgSuccessfully: 'Пациент успешно зарегистрирован',
                 surname: '',
                 surnameTouch: false,
                 name: '',
@@ -103,8 +114,11 @@
                 snils: '',
                 snilsTouch: false,
                 weight: '',
+                weightTouch: false,
                 height: '',
-                age: ''
+                heightTouch: false,
+                age: '',
+                ageTouch: false,
             }
         },
         methods: {
@@ -124,9 +138,12 @@
                     id: Date.now()
                 });
                 // Очистка всех полей ввода
-                this.surname = this.name = this.patronymic = this.birthdate = this.sex = this.snils = this.weight = this.height = this.age =  ''
+                this.surname = this.name = this.patronymic = this.birthdate = this.sex = this.snils = this.weight = this.height = this.age =  '';
+                this.surnameTouch = this.nameTouch = this.patronymicTouch = this.birthdateTouch = this.sexTouch = this.snilsTouch = false
             },
-          validateSNILS() {
+
+
+            validateSNILS() {
                 this.snils = this.snils.toString().replace(/\D/g, '')
 
                 // Цифр всегда 11
@@ -150,38 +167,48 @@
                     this.$v.sex.$invalid ||
                     this.$v.snils.$invalid
             },
+            // Валидация форм
             surnameError() {
-                return !this.surname && this.surnameTouch;
+                return !this.$v.surname.required && this.surnameTouch;
             },
             surnameInvalid() {
-                return !this.surname.alpha && this.surnameTouch;
+                return !this.$v.surname.alpha && this.surnameTouch;
             },
             nameError() {
-                return !this.name && this.nameTouch;
+                return !this.$v.name.required && this.nameTouch;
             },
             nameInvalid() {
-                return !this.name.alpha && this.nameTouch;
+                return !this.$v.name.alpha && this.surnameTouch;
             },
             patronymicInvalid() {
-                return !this.patronymic.alpha && this.patronymicTouch;
+                return !this.$v.patronymic.alpha && this.patronymicTouch;
             },
             sexError() {
-                return !this.sex && this.sexTouch;
+                return !this.$v.sex.required && this.sexTouch;
             },
             sexInvalid() {
-                return !this.sex.alpha && this.sexTouch;
+                return !this.$v.sex.alpha && this.sexTouch;
             },
             snilsError() {
-                return !this.snils && this.snilsTouch;
+                return !this.$v.snils.required && this.snilsTouch;
             },
             snilsInvalid() {
                 return !this.validateSNILS() && this.snilsTouch;
             },
             birthdateError() {
-                return !this.birthdate && this.birthdateTouch;
+                return !this.$v.birthdate.required && this.birthdateTouch;
             },
             birthdateInvalid() {
                 return !this.birthdate && this.birthdateTouch;
+            },
+            weightInvalid() {
+                return !this.$v.weight.onlyNumbers && this.weightTouch;
+            },
+            heightInvalid() {
+                return !this.$v.height.onlyNumbers && this.heightTouch;
+            },
+            ageInvalid() {
+                return !this.$v.height.onlyNumbers && this.ageTouch;
             }
         },
         validations: {
@@ -196,7 +223,7 @@
                alpha
             },
             birthdate: {
-                required
+                required,
             },
             sex: {
                 required,
@@ -204,7 +231,16 @@
             },
             snils: {
                 required
-            }
+            },
+            weight: {
+                onlyNumbers
+            },
+            height: {
+                onlyNumbers
+            },
+            age: {
+                onlyNumbers
+            },
         }
     }
 </script>
