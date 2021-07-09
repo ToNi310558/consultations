@@ -3,11 +3,13 @@
 
    <filters/>
 
-    <div v-for="patient in allPatients"  class="patient-flexbox">
+    <div v-for="patient in allPatients" :key="patient.id"  class="patient-flexbox">
       <div class="patient-fio">
-        {{patient.surname}}
-        {{patient.name}}
-        {{patient.patronymic}}
+          <a href="#" @click.prevent="openPatient(patient)">
+              {{patient.surname}}
+              {{patient.name}}
+              {{patient.patronymic}}
+          </a>
       </div>
       <div class="patient-birthdate">{{patient.birthdate}}</div>
     </div>
@@ -24,7 +26,12 @@ export default {
   components: {
     Filters
   },
-  computed: mapGetters(["allPatients"])
+  computed: mapGetters(["allPatients"]),
+    methods: {
+      openPatient(patient) {
+          this.$router.push('/patient/.' + patient.id)
+      }
+    }
 }
 </script>
 
@@ -35,14 +42,12 @@ export default {
     padding: 30px;
       margin-top: 30px;
   }
-  .new-patient{
-      .patient-flexbox;
-      justify-content: center;
-      margin: 6px 200px 10px 200px;
-      a{
-          text-decoration: none;
-          color: #2c3e50;
-      }
+  a{
+      text-decoration: none;
+      color: #2c3e50;
+  }
+  a:hover{
+      border-bottom: 2px solid #2c3e50;
   }
   .patient-flexbox{
     display: flex;

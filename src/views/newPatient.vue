@@ -83,15 +83,17 @@
                 </label>
             </section>
 
+            <div class="btn-container">
+                <button type="submit" class="btn" :disabled="disBtn">Создать</button>
+            </div>
 
-            <button type="submit" class="btn" :disabled="disBtn">Create post</button>
         </form>
     </div>
 </template>
 
 <script>
     import {mapMutations} from 'vuex'
-    import { required,  helpers, minDate} from 'vuelidate/lib/validators';
+    import { required,  helpers} from 'vuelidate/lib/validators';
     const alpha = helpers.regex('alpha', /^[ЁА-Яёа-я]*$/);
     const onlyNumbers = helpers.regex('onlyNumbers', /[0-9]/);
     export default {
@@ -283,5 +285,19 @@
         padding: 5px 14px;
         margin-top: 6px;
         border-radius: 5px;
+    }
+    .btn-container{
+        margin: 30px auto;
+        text-align: center;
+    }
+    .btn{
+        border-radius: 5px;
+        font-size: 20px;
+        background: #91cacf;
+        width: 130px;
+        height: 40px;
+    }
+    hr{
+        width: 69%;
     }
 </style>
