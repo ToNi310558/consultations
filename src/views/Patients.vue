@@ -3,7 +3,7 @@
 
    <filters/>
 
-    <div v-for="patient in allPatients" class="patient-flexbox">
+    <div v-for="patient in allPatients"  class="patient-flexbox">
       <div class="patient-fio">
         {{patient.surname}}
         {{patient.name}}

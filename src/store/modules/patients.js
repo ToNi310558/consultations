@@ -8,10 +8,11 @@ export default {
                 patronymic: 'Иванович',
                 birthdate: '19.04.1994',
                 sex: 'Мужской',
-                snils: '45455455',
+                snils: '15278361414',
                 weight: '',
                 height: '186',
-                age: ''
+                age: '',
+                id: 1001
             },
             {
                 surname: 'Горбачев',
@@ -19,10 +20,11 @@ export default {
                 patronymic: '',
                 birthdate: '03.11.1987',
                 sex: 'Мужской',
-                snils: '78784564',
+                snils: '16675209900',
                 weight: '84',
                 height: '176',
-                age: ''
+                age: '',
+                id: 1002
             },
             {
                 surname: 'Малинова',
@@ -30,10 +32,11 @@ export default {
                 patronymic: 'Владимировна',
                 birthdate: '28.09.2002',
                 sex: 'Женский',
-                snils: '89555465',
+                snils: '17027154139',
                 weight: '48',
                 height: '',
-                age: '18'
+                age: '18',
+                id: 1003
             },
             {
                 surname: 'Громова',
@@ -41,10 +44,11 @@ export default {
                 patronymic: 'Геннадиевна',
                 birthdate: '16.01.1997',
                 sex: 'Женский',
-                snils: '89555465',
+                snils: '19351706177',
                 weight: '140',
                 height: '',
-                age: '24'
+                age: '24',
+                id: 1004
             },
             {
                 surname: 'Лапухов',
@@ -52,10 +56,11 @@ export default {
                 patronymic: '',
                 birthdate: '11.10.2001',
                 sex: 'Мужской',
-                snils: '89555465',
+                snils: '15679695946',
                 weight: '73',
                 height: '178',
-                age: '19'
+                age: '19',
+                id: 1005
             },
             {
                 surname: 'Смирнов',
@@ -63,10 +68,11 @@ export default {
                 patronymic: 'Игоревич',
                 birthdate: '08.02.1989',
                 sex: 'Мужской',
-                snils: '89555465',
+                snils: '16769547839',
                 weight: '104',
                 height: '199',
-                age: ''
+                age: '',
+                id: 1006
             },
         ]
 },
@@ -76,5 +82,9 @@ export default {
         }
     },
     actions: {},
-    mutations:{}
+    mutations:{
+        createPatient(state, newPatient) {
+            state.patients.unshift(newPatient)
+        }
+    }
 }
