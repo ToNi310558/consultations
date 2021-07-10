@@ -127,7 +127,7 @@
             ...mapMutations(["createPatient"]),
             // Создание нового пациента
             submit() {
-                this.createPatient({
+             this.createPatient({
                     surname: this.surname,
                     name: this.name,
                     patronymic: this.patronymic,
@@ -141,9 +141,8 @@
                 });
                 // Очистка всех полей ввода
                 this.surname = this.name = this.patronymic = this.birthdate = this.sex = this.snils = this.weight = this.height = this.age =  '';
-                this.surnameTouch = this.nameTouch = this.patronymicTouch = this.birthdateTouch = this.sexTouch = this.snilsTouch = false
+                this.surnameTouch = this.nameTouch = this.patronymicTouch = this.birthdateTouch = this.sexTouch = this.snilsTouch = false;
             },
-
 
             validateSNILS() {
                 this.snils = this.snils.toString().replace(/\D/g, '')

@@ -3,7 +3,7 @@
 
       <div class="patients-head">
           <label for="filter">
-              <input type="checkbox" id="filter">В алфавитном порядке
+              <input type="radio" id="filter" v-model="filter" @click="filterPatients">В алфавитном порядке
           </label>
 
           <div class="patient-search">
@@ -34,7 +34,8 @@ export default {
   },
     data() {
         return{
-            filterValue: ''
+            filterValue: '',
+            filter: false
         }
     },
   computed: {
@@ -66,7 +67,18 @@ export default {
           }).catch((e)=>{
               console.log(e)
           })
-      }
+      },
+        // Сортировка пользователей по алфавиту
+        filterPatients() {
+                function compare(a, b) {
+                    if (a.surname < b.surname)
+                        return -1;
+                    if (a.surname > b.surname)
+                        return 1;
+                    return 0;
+                }
+                return this.searchPatient.sort(compare);
+        }
     }
 }
 </script>
