@@ -1,9 +1,17 @@
 <template>
   <div class="patients">
 
-   <filters/>
+      <div class="patients-head">
+          <label for="filter">
+              <input type="checkbox" id="filter">В алфавитном порядке
+          </label>
 
-    <div v-for="patient in allPatients" :key="patient.id"  class="patient-flexbox">
+          <div class="patient-search">
+              <input type="search" class="search" v-model="filterValue" placeholder="Введите ФИО или СНИЛС">
+          </div>
+      </div>
+
+    <div v-for="patient in searchPatient" :key="patient.id"  class="patient-flexbox">
       <div class="patient-fio">
           <a href="#" @click.prevent="openPatient(patient)">
               {{patient.surname}}
@@ -19,17 +27,45 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import Filters from "../components/filters";
 
 export default {
   name: 'Patients',
   components: {
-    Filters
   },
-  computed: mapGetters(["allPatients"]),
+    data() {
+        return{
+            filterValue: ''
+        }
+    },
+  computed: {
+      ...mapGetters(["allPatients"]),
+      searchPatient: function() {
+          let result = this.allPatients
+          // Проверка на пустую поисковую строку
+          if (!this.filterValue)
+              return result
+
+          const filterValue = this.filterValue.toLowerCase()
+          // Поиск пациента по фио или снилс
+          const filter = patient =>
+              patient.name.toLowerCase().includes(filterValue) ||
+              patient.surname.toLowerCase().includes(filterValue) ||
+              patient.patronymic.toLowerCase().includes(filterValue) ||
+              patient.snils.includes(filterValue)
+
+          return result.filter(filter)
+      }
+  },
     methods: {
+      // Переход на страницу с данными пациента
       openPatient(patient) {
-          this.$router.push('/patient/' + patient.id)
+          console.log(patient);
+          this.$router.push('/' +patient.id)
+          .then(()=>{
+              console.log('yes')
+          }).catch((e)=>{
+              console.log(e)
+          })
       }
     }
 }
@@ -60,5 +96,20 @@ export default {
   .patient-birthdate{
     opacity: .8;
     font-size: 18px;
+  }
+  .patients-head{
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+  }
+  .patient-search{
+      text-align: right;
+      margin-bottom: 20px;
+  }
+  .search{
+      padding: 4px 12px;
+      font-size: 16px;
+      min-width: 250px;
+      border-radius: 5px;
   }
 </style>

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Patients from '../views/patients.vue'
-const newPatient = () => import('../views/newPatient.vue')
+let newPatient = () => import('../views/newPatient.vue')
 Vue.use(VueRouter)
 
 const routes = [

@@ -10,9 +10,7 @@
 
 
 <script>
-  import Patients from "./views/patients.vue";
   export default {
-    components: {Patients}
   }
 </script>
 
