@@ -1,6 +1,6 @@
 <template>
     <section>
-        <h1>Patient </h1>
+        <h1>Patient {{this.$route.params.id}}</h1>
     </section>
 </template>
 

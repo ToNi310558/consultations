@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Patients from '../views/patients.vue'
 const newPatient = () => import('../views/newPatient.vue')
-import patient from '../views/patient/_id'
 Vue.use(VueRouter)
 
 const routes = [
@@ -15,11 +14,6 @@ const routes = [
     path: '/newPatient',
     name: 'newPatient',
     component: newPatient
-  },
-  {
-    path: '/patient/_id',
-    name: 'patient',
-    component: patient
   }
 ]
 

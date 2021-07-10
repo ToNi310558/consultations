@@ -29,7 +29,7 @@ export default {
   computed: mapGetters(["allPatients"]),
     methods: {
       openPatient(patient) {
-          this.$router.push('/patient/.' + patient.id)
+          this.$router.push('/patient/' + patient.id)
       }
     }
 }
