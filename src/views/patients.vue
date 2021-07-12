@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex';
+
 
 export default {
   name: 'Patients',
@@ -58,16 +59,15 @@ export default {
       }
   },
     methods: {
-      // Переход на страницу с данными пациента
-      openPatient(patient) {
-          console.log(patient);
-          this.$router.push('/' +patient.id)
-          .then(()=>{
-              console.log('yes')
-          }).catch((e)=>{
-              console.log(e)
-          })
-      },
+        // Переход на страницу с данными пациента
+        openPatient: function (patient) {
+            this.$router.push({name: 'patientId',
+                params: {
+                id: patient.id,
+                patient: patient
+                }
+            });
+        },
         // Сортировка пользователей по алфавиту
         filterPatients() {
                 function compare(a, b) {
@@ -88,7 +88,7 @@ export default {
     border: 1px solid #2c3e50;
     background: mintcream;
     padding: 30px;
-      margin-top: 30px;
+    margin-top: 30px;
   }
   a{
       text-decoration: none;

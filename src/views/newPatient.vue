@@ -123,6 +123,7 @@
                 ageTouch: false,
             }
         },
+
         methods: {
             ...mapMutations(["createPatient"]),
             // Создание нового пациента
@@ -142,8 +143,17 @@
                 // Очистка всех полей ввода
                 this.surname = this.name = this.patronymic = this.birthdate = this.sex = this.snils = this.weight = this.height = this.age =  '';
                 this.surnameTouch = this.nameTouch = this.patronymicTouch = this.birthdateTouch = this.sexTouch = this.snilsTouch = false;
+                this.openPatient()
             },
+            openPatient: function (patient) {
+                this.$router.push({name: 'patientId',
+                    params: {
+                        id: patient.id,
+                        patient: patient
+                    }
+                });
 
+            },
             validateSNILS() {
                 this.snils = this.snils.toString().replace(/\D/g, '')
 
