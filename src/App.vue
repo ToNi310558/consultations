@@ -42,5 +42,15 @@
   border-bottom: 5px solid #2c3e50;
   border-radius: 5px;
   }
+  // версии для смартфонов
+  @media all and (max-width: 720px){
+    #app{
+      font-size: 16px;
+      width: 420px;
+    }
+    .routs-a{
+      font-size: 18px;
+    }
+  }
 </style>
 

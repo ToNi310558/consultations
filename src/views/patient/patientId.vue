@@ -48,8 +48,6 @@
 }
 .patient-actions{
     margin-bottom: 20px;
-
-
 }
 button{
     border-radius: 5px;
@@ -67,5 +65,15 @@ table {
 th, td {
     border: 1px solid grey;
     padding: 4px 2%;
+}
+
+@media all and (max-width: 720px){
+    .patient{
+        padding: 22px;
+    }
+    button{
+        font-size: 16px;
+        height: 30px;
+    }
 }
 </style>

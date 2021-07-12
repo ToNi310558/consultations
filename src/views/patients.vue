@@ -125,4 +125,23 @@ export default {
       min-width: 250px;
       border-radius: 5px;
   }
+  // версии для смартфонов
+  @media all and (max-width: 720px){
+      .patients{
+          padding: 22px;
+      }
+      .patient-flexbox{
+          padding: 10px 16px;
+      }
+      .patient-birthdate{
+          font-size: 15px;
+      }
+      .search{
+          width: 100%;
+          margin-top: 10px;
+      }
+      .patients-head{
+          display: block;
+      }
+  }
 </style>

@@ -6,7 +6,8 @@
                 <input v-model.trim="surname"
                        @blur="surnameTouch = true"
                        :class="{ 'error': surnameError || surnameInvalid }"
-                       class="form-input" type="text">
+                       class="form-input" type="text"
+                       maxlength="15">
                 <div v-if="surnameError" class="error-msg">{{msgRequired}}</div>
                 <div v-else-if="surnameInvalid" class="error-msg">{{msgInvalid}}</div>
             </label>
@@ -15,7 +16,8 @@
                 <input v-model.trim="name"
                        @blur="nameTouch = true"
                        :class="{ 'error': nameError || nameInvalid }"
-                       class="form-input" type="text">
+                       class="form-input" type="text"
+                       maxlength="12">
                 <div v-if="nameError" class="error-msg">{{msgRequired}}</div>
                 <div v-else-if="nameInvalid" class="error-msg">{{msgInvalid}}</div>
             </label>
@@ -24,7 +26,8 @@
                 <input v-model.trim="patronymic"
                        @blur="patronymicTouch = true"
                        :class="{ 'error':  patronymicInvalid }"
-                       class="form-input" type="text">
+                       class="form-input" type="text"
+                       maxlength="15">
                 <div v-if="patronymicInvalid" class="error-msg">{{msgInvalid}}</div>
             </label>
 
@@ -41,7 +44,8 @@
                 <input v-model.trim="sex"
                        @blur="sexTouch = true"
                        :class="{ 'error': sexError || sexInvalid}"
-                       class="form-input" type="text">
+                       class="form-input" type="text"
+                       maxlength="10">
                 <div v-if="sexError" class="error-msg">{{msgRequired}}</div>
                 <div v-else-if="sexInvalid" class="error-msg">{{msgInvalid}}</div>
             </label>
@@ -93,7 +97,7 @@
 
 <script>
     import {mapMutations} from 'vuex'
-    import { required,  helpers} from 'vuelidate/lib/validators';
+    import { required,  helpers, maxValue} from 'vuelidate/lib/validators';
     let alpha = helpers.regex('alpha', /^[ЁА-Яёа-я]*$/);
     const onlyNumbers = helpers.regex('onlyNumbers', /[0-9]/);
     export default {
@@ -319,5 +323,28 @@
     }
     hr{
         width: 69%;
+        background-color: #2c3e50;
+    }
+
+    @media all and (max-width: 720px){
+        .error-msg{
+            font-size: 12px;
+        }
+        .form-label{
+            width: 98%;
+        }
+        .form-input{
+            width: 90%;
+        }
+        hr{
+            width: 95%;
+        }
+        section{
+            width: 98%;
+        }
+        .form-input_mini{
+            width: 69%;
+            font-size: 18px;
+        }
     }
 </style>
