@@ -3,7 +3,7 @@
 
         <div class="patient-actions">
             <button value="refactor">Редактировать</button>
-            <button value="delete">Удалить</button>
+            <button value="delete" @click="deleteThisPatient">Удалить</button>
         </div>
 
         <table>
@@ -21,12 +21,21 @@
 </template>
 
 <script>
+    import {mapMutations} from 'vuex'
     export default {
         name: "patientId",
+        // Получение данных пациента
      props: {
          patient:{patient: [String, Number]}
+     },
+     methods: {
+            ...mapMutations(["deletePatient"]),
+         // Удаление пациента из массива
+         deleteThisPatient() {
+            this.deletePatient(this.$route.params.id);
+            this.$router.push( {path: '/'})
+         }
      }
-
   }
 </script>
 

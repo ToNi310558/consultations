@@ -78,13 +78,17 @@ export default {
 },
     getters: {
         allPatients(state) {
-            return state.patients
+            return state.patients;
         }
     },
     actions: {},
     mutations:{
         createPatient(state, newPatient) {
-            state.patients.unshift(newPatient)
+            state.patients.unshift(newPatient);
+        },
+        deletePatient(state, patientId) {
+          let del = state.patients.findIndex(i => i.id === patientId);
+            state.patients.splice(del, 1);
         }
     }
 }

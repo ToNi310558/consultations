@@ -94,7 +94,7 @@
 <script>
     import {mapMutations} from 'vuex'
     import { required,  helpers} from 'vuelidate/lib/validators';
-    const alpha = helpers.regex('alpha', /^[ЁА-Яёа-я]*$/);
+    let alpha = helpers.regex('alpha', /^[ЁА-Яёа-я]*$/);
     const onlyNumbers = helpers.regex('onlyNumbers', /[0-9]/);
     export default {
         name: "newPatient",
@@ -102,7 +102,6 @@
             return {
                 msgRequired: 'Поле обязательно для заполнения',
                 msgInvalid: 'Недопустимые символы',
-                msgSuccessfully: 'Пациент успешно зарегистрирован',
                 surname: '',
                 surnameTouch: false,
                 name: '',
@@ -128,7 +127,8 @@
             ...mapMutations(["createPatient"]),
             // Создание нового пациента
             submit() {
-             this.createPatient({
+                let idNewPatient = Date.now()
+                let patient = {
                     surname: this.surname,
                     name: this.name,
                     patronymic: this.patronymic,
@@ -138,12 +138,23 @@
                     weight: this.weight,
                     height: this.height,
                     age: this.age,
-                    id: Date.now()
+                    id: idNewPatient
+                }
+                // Отправка данных новго пациента в массив пациентов
+             this.createPatient({
+                    surname: patient.surname,
+                    name: patient.name,
+                    patronymic: patient.patronymic,
+                    birthdate: patient.birthdate,
+                    sex: patient.sex,
+                    snils: patient.snils,
+                    weight: patient.weight,
+                    height: patient.height,
+                    age: patient.age,
+                    id: patient.id
                 });
-                // Очистка всех полей ввода
-                this.surname = this.name = this.patronymic = this.birthdate = this.sex = this.snils = this.weight = this.height = this.age =  '';
-                this.surnameTouch = this.nameTouch = this.patronymicTouch = this.birthdateTouch = this.sexTouch = this.snilsTouch = false;
-                this.openPatient()
+                // Переадресация на страницу нового пациента
+                this.openPatient(patient);
             },
             openPatient: function (patient) {
                 this.$router.push({name: 'patientId',
@@ -154,22 +165,22 @@
                 });
 
             },
+            // Валидация СНИЛСа
             validateSNILS() {
                 this.snils = this.snils.toString().replace(/\D/g, '')
 
-                // Цифр всегда 11
-                if (this.snils.length != 11) return false
-                // Трёх одинаковых цифр подряд быть не может
+                if (this.snils.length !== 11) return false
                 if (/(\d)\1\1/.test(this.snils.toString())) return false
 
                 const controlCode = Number(this.snils.substr(-2))
                 let calcCode = this.snils.substr(0, 9).split('').map((N, idx) => Number(N) * (9 - idx)).reduce((Sum, N) => Sum + N)
-                if (calcCode == 100) calcCode = 0
-                if (calcCode % 101 != controlCode) return false
+                if (calcCode === 100) calcCode = 0
+                return calcCode % 101 === controlCode;
 
-                return true
+
             }
         },
+        // Провера всех обязательных полей ввода
         computed: {
             disBtn() {
                 return this.$v.surname.$invalid ||
@@ -178,7 +189,7 @@
                     this.$v.sex.$invalid ||
                     this.$v.snils.$invalid
             },
-            // Валидация форм
+            // Валидация полей
             surnameError() {
                 return !this.$v.surname.required && this.surnameTouch;
             },

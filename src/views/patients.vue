@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex';
+import {mapGetters} from 'vuex';
 
 
 export default {
@@ -41,6 +41,7 @@ export default {
     },
   computed: {
       ...mapGetters(["allPatients"]),
+      // Поиск пациента
       searchPatient: function() {
           let result = this.allPatients
           // Проверка на пустую поисковую строку
