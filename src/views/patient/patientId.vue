@@ -2,8 +2,8 @@
     <div class="patient">
 
         <div class="patient-actions">
-            <button value="refactor">Редактировать</button>
-            <button value="delete" @click="deleteThisPatient">Удалить</button>
+            <button @click="refactorPatient">Редактировать</button>
+            <button @click="deleteThisPatient">Удалить</button>
         </div>
 
         <table>
@@ -16,7 +16,7 @@
             <tr><td>Возраст: </td><td>{{$route.params.patient.age}}</td></tr>
         </table>
 
-
+        <button @click="patientConsultations" class="btn-consult">Консультации пациента</button>
     </div>
 </template>
 
@@ -34,6 +34,12 @@
          deleteThisPatient() {
             this.deletePatient(this.$route.params.id);
             this.$router.push( {path: '/'})
+         },
+         refactorPatient() {
+
+         },
+         patientConsultations() {
+
          }
      }
   }
@@ -47,7 +53,7 @@
     margin-top: 30px;
 }
 .patient-actions{
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 button{
     border-radius: 5px;
@@ -66,7 +72,9 @@ th, td {
     border: 1px solid grey;
     padding: 4px 2%;
 }
-
+.btn-consult{
+    margin-top: 30px;
+}
 @media all and (max-width: 720px){
     .patient{
         padding: 22px;
