@@ -28,6 +28,7 @@
 <script>
 import {mapGetters} from 'vuex';
 
+
 export default {
   name: 'Patients',
   components: {
@@ -59,6 +60,7 @@ export default {
       }
   },
     methods: {
+      ...mapActions(["getPatients"]),
         // Переход на страницу с данными пациента
         openPatient: function (patient) {
             this.$router.push({name: 'patientId',
@@ -79,8 +81,7 @@ export default {
                 }
                 return this.searchPatient.sort(compare);
         }
-    },
-
+    }
 }
 </script>
 

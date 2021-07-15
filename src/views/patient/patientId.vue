@@ -24,6 +24,11 @@
     import {mapMutations} from 'vuex'
     export default {
         name: "patientId",
+        data() {
+            return{
+                patientInfo: {}
+            }
+        },
         // Получение данных пациента
      props: {
          patient:{patient: [String, Number]}
@@ -41,7 +46,17 @@
          patientConsultations() {
 
          }
-     }
+     },
+        created() {
+            this.getPatientInfo()
+        },
+        computed: {
+            getPatientInfo: ()=>{
+                let info = this.$route.params;
+                return this.patientInfo = info;
+                console.log(this.patientInfo)
+            }
+        }
   }
 </script>
 
