@@ -26,8 +26,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
-
+import {mapGetters, mapActions} from 'vuex';
 
 export default {
   name: 'Patients',
@@ -50,13 +49,13 @@ export default {
 
           const filterValue = this.filterValue.toLowerCase()
           // Поиск пациента по фио или снилс
-          const filters = patient =>
+          const filter = patient =>
               patient.name.toLowerCase().includes(filterValue) ||
               patient.surname.toLowerCase().includes(filterValue) ||
               patient.patronymic.toLowerCase().includes(filterValue) ||
               patient.snils.includes(filterValue)
-            console.log(filters())
-          return result.filter(filters)
+
+          return result.filter(filter)
       }
   },
     methods: {
@@ -81,6 +80,9 @@ export default {
                 }
                 return this.searchPatient.sort(compare);
         }
+    },
+    async mounted() {
+      this.getPatients();
     }
 }
 </script>

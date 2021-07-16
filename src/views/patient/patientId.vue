@@ -26,7 +26,7 @@
         name: "patientId",
         data() {
             return{
-                patientInfo: {}
+
             }
         },
         // Получение данных пациента
@@ -47,17 +47,9 @@
 
          }
      },
-        created() {
-            this.getPatientInfo()
-        },
-        computed: {
-            getPatientInfo: ()=>{
-                let info = this.$route.params;
-                return this.patientInfo = info;
-                console.log(this.patientInfo)
-            }
-        }
-  }
+
+
+    }
 </script>
 
 <style scoped>

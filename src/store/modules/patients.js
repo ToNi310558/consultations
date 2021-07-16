@@ -1,7 +1,7 @@
-
+import firebase from "firebase/app";
 export default {
     state: {
-        patients: []
+        patients: { }
 },
     getters: {
         allPatients(state) {
@@ -10,10 +10,10 @@ export default {
     },
     actions: {
        async getPatients(ctx) {
-            const res = await fetch('https://consultations-5b0c5-default-rtdb.europe-west1.firebasedatabase.app/');
-            const patients =  res.json();
-            ctx.commit('updatePatients', patients)
-        }
+            const patient = await firebase.database().ref('patients').once("value");
+            const patients = patient.val()
+            ctx.commit('updatePatients', patients);
+        },
     },
     mutations:{
         updatePatients(state, patients) {
