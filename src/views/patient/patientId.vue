@@ -26,7 +26,9 @@
         name: "patientId",
         // Получение данных пациента
      props: {
-         patient:{patient: [String, Number]}
+         patient:{
+
+         }
      },
      methods: {
             ...mapMutations(["deletePatient"]),
