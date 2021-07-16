@@ -1,4 +1,4 @@
-
+import consultations from "./consultations";
 export default {
     state: {
         patients: [
@@ -12,7 +12,8 @@ export default {
                 weight: '',
                 height: '186',
                 age: '',
-                id: 1001
+                id: 1001,
+                consultate: [ ]
             },
             {
                 surname: 'Горбачев',
@@ -24,7 +25,8 @@ export default {
                 weight: '84',
                 height: '176',
                 age: '',
-                id: 1002
+                id: 1002,
+                consultate: [ ]
             },
             {
                 surname: 'Малинова',
@@ -36,7 +38,8 @@ export default {
                 weight: '48',
                 height: '',
                 age: '18',
-                id: 1003
+                id: 1003,
+                consultate: [ ]
             },
             {
                 surname: 'Громова',
@@ -48,7 +51,8 @@ export default {
                 weight: '140',
                 height: '',
                 age: '24',
-                id: 1004
+                id: 1004,
+                consultate: [ ]
             },
             {
                 surname: 'Лапухов',
@@ -60,7 +64,8 @@ export default {
                 weight: '73',
                 height: '178',
                 age: '19',
-                id: 1005
+                id: 1005,
+                consultate: [ ]
             },
             {
                 surname: 'Смирнов',
@@ -72,7 +77,8 @@ export default {
                 weight: '104',
                 height: '199',
                 age: '',
-                id: 1006
+                id: 1006,
+                consultate: []
             },
         ]
 },
@@ -81,7 +87,11 @@ export default {
             return state.patients;
         }
     },
-    actions: {},
+    actions: {
+        addConsultations() {
+          let consult =  this.consultations
+        }
+    },
     mutations:{
         createPatient(state, newPatient) {
             state.patients.unshift(newPatient);

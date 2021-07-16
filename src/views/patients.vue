@@ -28,7 +28,6 @@
 <script>
 import {mapGetters} from 'vuex';
 
-
 export default {
   name: 'Patients',
   components: {
@@ -50,13 +49,13 @@ export default {
 
           const filterValue = this.filterValue.toLowerCase()
           // Поиск пациента по фио или снилс
-          const filter = patient =>
+          const filters = patient =>
               patient.name.toLowerCase().includes(filterValue) ||
               patient.surname.toLowerCase().includes(filterValue) ||
               patient.patronymic.toLowerCase().includes(filterValue) ||
               patient.snils.includes(filterValue)
-
-          return result.filter(filter)
+            console.log(filters())
+          return result.filter(filters)
       }
   },
     methods: {
@@ -80,7 +79,8 @@ export default {
                 }
                 return this.searchPatient.sort(compare);
         }
-    }
+    },
+
 }
 </script>
 

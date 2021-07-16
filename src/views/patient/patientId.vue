@@ -7,14 +7,15 @@
         </div>
 
         <table>
-            <tr><th>ФИО: </th><th>{{this.patientInfo.surname}} {{this.patientInfo.name}} {{this.patientInfo.patronymic}}</th></tr>
-            <tr><td>Дата рождения: </td><td>{{this.patientInfo.birthdate}}</td></tr>
-            <tr><td>Пол: </td><td>{{this.patientInfo.sex}}</td></tr>
-            <tr><td>СНИЛС: </td><td>{{this.patientInfo.snils}}</td></tr>
-            <tr><td>Вес: </td><td>{{this.patientInfo.weight}}</td></tr>
-            <tr><td>Рост: </td><td>{{this.patientInfo.height}}</td></tr>
-            <tr><td>Возраст: </td><td>{{this.patientInfo.age}}</td></tr>
+            <tr><th>ФИО: </th><th>{{$route.params.patient.surname}} {{$route.params.patient.name}} {{$route.params.patient.patronymic}}</th></tr>
+            <tr><td>Дата рождения: </td><td>{{$route.params.patient.birthdate}}</td></tr>
+            <tr><td>Пол: </td><td>{{$route.params.patient.sex}}</td></tr>
+            <tr><td>СНИЛС: </td><td>{{$route.params.patient.snils}}</td></tr>
+            <tr><td>Вес: </td><td>{{$route.params.patient.weight}}</td></tr>
+            <tr><td>Рост: </td><td>{{$route.params.patient.height}}</td></tr>
+            <tr><td>Возраст: </td><td>{{$route.params.patient.age}}</td></tr>
         </table>
+
         <button @click="patientConsultations" class="btn-consult">Консультации пациента</button>
     </div>
 </template>
@@ -23,41 +24,25 @@
     import {mapMutations} from 'vuex'
     export default {
         name: "patientId",
-        data() {
-            return{
-                patientInfo: {
-                    id: this.$route.params.id,
-                    surname: this.$route.params.patient.surname,
-                    name: this.$route.params.patient.name,
-                    patronymic: this.$route.params.patient.patronymic,
-                    birthdate: this.$route.params.patient.birthdate,
-                    sex: this.$route.params.patient.sex,
-                    snils: this.$route.params.patient.snils,
-                    weight: this.$route.params.patient.weight,
-                    height: this.$route.params.patient.height,
-                    age: this.$route.params.patient.age,
-                },
-            }
-        },
         // Получение данных пациента
      props: {
-         patient:{}
+         patient:{patient: [String, Number]}
      },
      methods: {
             ...mapMutations(["deletePatient"]),
          // Удаление пациента из массива
          deleteThisPatient() {
-            this.deletePatient(this.id);
-            this.$router.push( {path: '/'});
+            this.deletePatient(this.$route.params.id);
+            this.$router.push( {path: '/'})
          },
          refactorPatient() {
-             this.$router.push({name: 'refactor'});
+
          },
-         patientConsultations: function () {
-             this.$router.push({name: 'consultations'});
-        },
-     },
-    }
+         patientConsultations() {
+
+         }
+     }
+  }
 </script>
 
 <style scoped>
